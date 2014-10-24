@@ -22,7 +22,7 @@ var screenHeight;
 gameInitialize();
 snakeInitialize();
 foodInitialize();
-setInterval(gameLoop, 1000/30);
+setInterval(gameLoop, 1000/20);
 
 
 function gameInitialize() {
@@ -57,7 +57,7 @@ function gameDraw() {
 
 function snakeInitialize() {
   snake = [];
-  snakeLength = 1;
+  snakeLength = 5;
   snakeSize = 20;
   snakeDirection ="down";
   
@@ -96,7 +96,7 @@ function snakeUpdate() {
         }
         
     checkFoodCollisions (snakeHeadX, snakeHeadY);
-    checkWallColisions (snakeHeadX, snakeHeadY);
+    checkWallCollisions (snakeHeadX, snakeHeadY);
 
     var snakeTail = snake.pop();
     snakeTail.x = snakeHeadX;
@@ -164,6 +164,7 @@ function keyboardHandler (event) {
              y: 0
          });
          snakeLength++;
+         moveFood("new");
      }
  }
  
