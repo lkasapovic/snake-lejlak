@@ -75,6 +75,7 @@ function gameRestart() {
     foodInitialize();
     hideMenu(gameOverMenu);
     setState("PLAY");
+    startMenu();
 }
 
 /*----------------------------------------------------------------------------
@@ -192,6 +193,8 @@ function checkFoodCollisions(snakeHeadX, snakeHeadY) {
             y: 0
         });
         snakeLength++;
+        setFoodPosition();
+
     }
 }
 
@@ -254,3 +257,12 @@ function centerMenuPosition(menu) {
 function drawScoreboard (){
     scoreboard.innerHTML = "Length: " + snakeLength;
 }
+
+function startMenu() {
+	menu = document.getElementById("menu");
+	reMenu = document.getElementById("reMenu");
+	
+	scoreText = document.getElementById("score");
+	reMenu.style.zIndex = "-1";
+}
+
