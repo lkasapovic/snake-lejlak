@@ -16,6 +16,7 @@ var screenHeight;
 
 var gameState;
 var gameOverMenu;
+var startMenu;
 var restartButton;
 var playHUD;
 var scoreboard;
@@ -28,8 +29,12 @@ var scoreboard;
 gameInitialize();
 snakeInitialize();
 foodInitialize();
-setInterval(gameLoop, 1000 / 20);
+setInterval(gameLoop, 1000 / 30);
 
+/*----------------------------------------------------------------------------
+ * Game
+ * ---------------------------------------------------------------------------
+ */
 
 function gameInitialize() {
     var canvas = document.getElementById("game-screen");
@@ -48,11 +53,13 @@ function gameInitialize() {
 
     restartButton = document.getElementById("restartButton");
     restartButton = document.addEventListener("click", gameRestart);
-    
+
     playHUD = document.getElementById("playHUD");
     scoreboard = document.getElementById("scoreboard");
 
     setState("PLAY");
+
+
 }
 
 function gameLoop() {
@@ -160,7 +167,7 @@ function setFoodPosition() {
 }
 
 /*----------------------------------------------------------------------------
- * Input Functions
+ *  * Snake Directions
  * ---------------------------------------------------------------------------
  */
 
@@ -182,7 +189,7 @@ function keyboardHandler(event) {
 }
 
 /*---------------------------------------------------------------------------
- * Collision Handling
+ * Collisions
  * --------------------------------------------------------------------------
  */
 
@@ -207,8 +214,8 @@ function checkWallCollisions(snakeHeadX, snakeHeadY) {
 }
 
 function checkSnakeCollisions(snakeHeadX, snakeHeadY) {
-    for(var index = 1; index < snake.length; index++){
-        if(snakeHeadX == snake[index].x && snakeHeadY == snake[index].y){
+    for (var index = 1; index < snake.length; index++) {
+        if (snakeHeadX == snake[index].x && snakeHeadY == snake[index].y) {
             setState("GAME OVER");
             return;
         }
@@ -227,7 +234,7 @@ function setState(state) {
 }
 
 /*---------------------------------------------------------------------------
- * Menu functions
+ * Game Over Menu 
  * --------------------------------------------------------------------------
  */
 
@@ -235,7 +242,7 @@ function displayMenu(menu) {
     menu.style.visibility = "visible";
 }
 
-function hideMenu(menu){
+function hideMenu(menu) {
     menu.style.visibility = "hidden";
 }
 
@@ -243,7 +250,7 @@ function showMenu(state) {
     if (state == "GAME OVER") {
         displayMenu(gameOverMenu);
     }
-    else if(state == "PLAY") {
+    else if (state == "PLAY") {
         displayMenu(playHUD);
     }
 }
@@ -253,16 +260,11 @@ function centerMenuPosition(menu) {
     menu.style.left = (screenWidth / 2) - (menu.offsetWidth / 2) + "px";
 
 }
+/*---------------------------------------------------------------------------
+ * Scoreboard
+ * --------------------------------------------------------------------------
+ */
 
-function drawScoreboard (){
+function drawScoreboard() {
     scoreboard.innerHTML = "Length: " + snakeLength;
 }
-
-function startMenu() {
-	menu = document.getElementById("menu");
-	reMenu = document.getElementById("reMenu");
-	
-	scoreText = document.getElementById("score");
-	reMenu.style.zIndex = "-1";
-}
-
