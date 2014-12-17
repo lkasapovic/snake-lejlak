@@ -16,10 +16,11 @@ var screenHeight;
 
 var gameState;
 var gameOverMenu;
-var startMenu;
 var restartButton;
 var playHUD;
 var scoreboard;
+var startMenu;
+var startButton;
 
 /*----------------------------------------------------------------------------
  * Calling the functions
@@ -53,6 +54,12 @@ function gameInitialize() {
 
     restartButton = document.getElementById("restartButton");
     restartButton = document.addEventListener("click", gameRestart);
+    
+    startMenu = document.getElementById("startMenu");
+    centerMenuPosition(startMenu);
+    
+    startButton = document.getElementById("startButton");
+    startButton = document.addEventListener("click", startMenu);
 
     playHUD = document.getElementById("playHUD");
     scoreboard = document.getElementById("scoreboard");
@@ -84,6 +91,13 @@ function gameRestart() {
     setState("PLAY");
     startMenu();
 }
+
+function startMenu() {
+    menu = document.getElementById("menu");
+    reMenu = document.getElementById("reMenu");
+}
+
+startMenu();
 
 /*----------------------------------------------------------------------------
  * Snake
@@ -247,13 +261,17 @@ function hideMenu(menu) {
 }
 
 function showMenu(state) {
-    if (state == "GAME OVER") {
-        displayMenu(gameOverMenu);
-    }
-    else if (state == "PLAY") {
+    if (state == "PLAY") {
         displayMenu(playHUD);
     }
+    else if (state == "GAME OVER") {
+        displayMenu(gameOverMenu);
+    }
+    else if (state == "START"){
+        displayMenu(startScreen);
+    }
 }
+    
 
 function centerMenuPosition(menu) {
     menu.style.top = (screenHeight / 2) - (menu.offsetHeight / 2) + "px";
@@ -268,3 +286,4 @@ function centerMenuPosition(menu) {
 function drawScoreboard() {
     scoreboard.innerHTML = "Length: " + snakeLength;
 }
+
